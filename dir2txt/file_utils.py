@@ -1,7 +1,7 @@
 import fnmatch
 import os
 import re
-from terminal_utils import Colors
+from .terminal_utils import Colors
 from pathlib import Path
 
 
@@ -19,7 +19,7 @@ def get_list_files(dir_path=".") -> list[str]:
 
     for p in base.rglob("*"):
         if p.is_file():
-            files.append("./" + str(p).replace("\\", "/"))
+            files.append(str(p).replace("\\", "/"))
 
     print(f"{Colors.BLUE}[~]{Colors.RESET} {len(files)} files were found in directory '{dir_path}/'")
 

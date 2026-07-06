@@ -1,11 +1,11 @@
-from file_utils import (
+from .file_utils import (
     get_list_files,
     get_list_ignores,
     get_final_files,
     convert_files_to_text,
     file_quality_check_for_LLM,
 )
-from terminal_utils import Colors
+from .terminal_utils import Colors
 import argparse
 
 
