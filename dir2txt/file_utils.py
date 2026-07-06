@@ -1,7 +1,7 @@
 import fnmatch
 import os
 import re
-from terminal_utils import Colors
+from .terminal_utils import Colors
 from pathlib import Path
 
 
