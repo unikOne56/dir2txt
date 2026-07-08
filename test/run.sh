@@ -1,0 +1,1 @@
+python -m dir2txt -i "./test/" -o "test/output.txt" -d "its test" 

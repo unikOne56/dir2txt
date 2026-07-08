@@ -46,26 +46,25 @@ def get_list_ignores(output: str) -> list[str] | list[None]:
         ['data.json', '.gitignore', '*.pyc', '/.venv/']
         ```
     """
-
-    dir2txtignore_path = ".dir2txtignore"
-
-    if os.path.exists(dir2txtignore_path):
-
-        ignore_files = [dir2txtignore_path, output]
-
-        with open(dir2txtignore_path, "r") as f:
-            content = f.read()
-            for line in content.split("\n"):
-                ignore_files.append(line)
-
-            print(
-                f"{Colors.BLUE}[~]{Colors.RESET} {len(ignore_files)} entries were received from .dir2txtignore."
-            )
-
-            return ignore_files
-
-    else:
+    
+    path = Path(".")
+    dir2txtignore_path = list(path.rglob(".dir2txtignore"))
+    
+    if not dir2txtignore_path:
         return []
+    else:
+        dir2txtignore_path = str(dir2txtignore_path[0])
+
+    ignore_files = [dir2txtignore_path, output]
+
+    with open(dir2txtignore_path, "r") as f:
+        content = f.read()
+        for line in content.split("\n"):
+            ignore_files.append(line)
+
+        print(f"{Colors.BLUE}[~]{Colors.RESET} {len(ignore_files) - 2} entries were received from .dir2txtignore.")
+
+        return ignore_files
 
 
 def get_final_files(files: list[str], ignores: list[str]) -> list[str]:
