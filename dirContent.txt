@@ -1,0 +1,4 @@
+FILE START: test/my_test_project/example.txt 
+This is a test text.
+FILE END: test/my_test_project/example.txt 
+
