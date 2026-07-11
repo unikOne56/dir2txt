@@ -1,0 +1,5 @@
+my_test_project/
+├── .dir2txtignore
+├── example.exe
+├── example.txt
+└── my_privet_file.sec
