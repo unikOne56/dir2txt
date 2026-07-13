@@ -1,0 +1,11 @@
+# Default System & Environment Folders
+.git
+.venv
+__pycache__
+node_modules
+.idea
+.vscode
+
+# Project Specific Folders
+build
+dist
