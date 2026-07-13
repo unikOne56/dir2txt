@@ -33,14 +33,13 @@ def main():
     ignores = get_list_ignores(output=output)
     final_files = get_final_files(files=files, ignores=ignores)
 
+    generate_tree_view(dir_path=input_, output_tree_file=f"{output.split(".")[0]}.tree.txt")
     convert_files_to_text(
         files=final_files, 
         description=description, 
         output_file=output, 
         runtime_extensions=args.ignore_ext
     )
-        
-    generate_tree_view(dir_path=input_, output_tree_file=f"{output.split(".")[0]}.tree.txt")
     file_quality_check_for_LLM(output)
 
 

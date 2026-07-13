@@ -1,4 +1,5 @@
 import fnmatch
+from collections import Counter
 import os
 import re
 from pathlib import Path
@@ -65,7 +66,7 @@ def get_list_files(dir_path: str = ".") -> list[str]:
             file_path = os.path.join(root, filename)
             files.append(str(file_path).replace("\\", "/"))
 
-    print(f"{Colors.BLUE}[~]{Colors.RESET} {len(files)} files were found in directory '{dir_path}/' (filtered by configuration)")
+    print(f"{Colors.BLUE}[~]{Colors.RESET} {len(files)} files were found in directory '{dir_path}/'")
     return files
 
 
@@ -88,8 +89,13 @@ def get_list_ignores(output: str) -> list[str]:
         for line in content.split("\n"):
             if line.strip():
                 ignore_files.append(line.strip())
+                    
+        ignore_values = [i for i in ignore_files if i not in [dir2txtignore_str, output]]
+        
+        if ignore_values:
+            print(f"{Colors.BLUE}[~]{Colors.RESET} {len(ignore_values)} Pattern obtained from .dir2txtignore:")
+            print(f"\t{Colors.BLUE}-{Colors.RESET} {" | ".join(ignore_values)}")
 
-        print(f"{Colors.BLUE}[~]{Colors.RESET} {len(ignore_files) - 2} entries were received from .dir2txtignore.")
         return ignore_files
 
 
@@ -143,11 +149,19 @@ def get_final_files(files: list[str], ignores: list[str]) -> list[str]:
 
         if not ignore_match:
             final_files.append(file_path)
-
-    print(f"{Colors.BLUE}[~]{Colors.RESET} {len(final_files)} files were selected for conversion to text:\n{Colors.BLUE}[~]{Colors.RESET} ", end="")
-    for f in final_files:
-        print(f, end=" ")
-    print("")
+    
+    extensions = Counter()
+    directories = Counter()
+    
+    for file in final_files:
+        _, ext = os.path.splitext(file)
+        extensions[ext or 'no_ext'] += 1
+        dir_name = os.path.dirname(file) or 'root'
+        directories[dir_name] += 1
+    
+    print(f"{Colors.BLUE}[~]{Colors.RESET} {len(final_files)} files were selected for conversion to text:")
+    print(f"\t{Colors.BLUE}-{Colors.RESET} Suffixes: {', '.join(f'{k[1:]}: {v}' for k, v in extensions.most_common(3))}")
+    print(f"\t{Colors.BLUE}-{Colors.RESET} Directories {', '.join(f'{k[1:]}: {v}' for k, v in directories.most_common(3))}")
 
     return final_files
 
@@ -182,8 +196,6 @@ def convert_files_to_text(files: list[str], description: str, output_file: str, 
     spaces = ["", "\n", " ", "\t", "    "]
     current_dir = Path(__file__).parent
     ignored_extensions_set = load_ignored_extensions(current_dir / "config" / "ignored_extensions.txt")
-
-    print(f"{Colors.BLUE}[~]{Colors.RESET} Start writing file '{output_file}' ...")
 
     with open(output_file, "w", encoding="utf-8") as outfile:
         outfile.write(description)
@@ -245,7 +257,7 @@ def generate_tree_view(dir_path: str, output_tree_file: str) -> None:
     with open(output_tree_file, "w", encoding="utf-8") as f:
         f.write("\n".join(tree_lines) + "\n")
         
-    print(f"{Colors.BLUE}[~]{Colors.RESET} Tree structure saved successfully to '{output_tree_file}'.")
+    print(f"{Colors.BLUE}[~]{Colors.RESET} 🌲 Tree structure saved to '{output_tree_file}'.")
 
 
 def file_quality_check_for_LLM(path_file: str) -> None:
@@ -263,20 +275,14 @@ def file_quality_check_for_LLM(path_file: str) -> None:
         tokens = estimate_tokens(content)
 
     if tokens > 4000:
-        print(f"{Colors.YELLOW}\n[NOTE] File {path_file} has {tokens} tokens and contains more than 4000 tokens. Your LLM model may not be able to process it correctly.")
+        print(f"{Colors.YELLOW}\n[NOTE]  File {path_file} has {tokens} tokens and contains more than 4000 tokens.\n\tYour LLM model may not be able to process it correctly.\n")
         print(f"{Colors.BLUE}[~]{Colors.RESET} LLMs Token Range:{Colors.RESET}")
         print(
-            f"""
-    LLM                 Token
-    {Colors.GREEN if tokens < 16385   else Colors.RED}GPT-3.5 Turbo      16K       {Colors.RESET}
-    {Colors.GREEN if tokens < 8000    else Colors.RED}GPT-4              8K        {Colors.RESET}
-    {Colors.GREEN if tokens < 128000  else Colors.RED}GPT-4 Turbo        128K      {Colors.RESET}
-    {Colors.GREEN if tokens < 128000  else Colors.RED}GPT-4o             128K      {Colors.RESET}
-    {Colors.GREEN if tokens < 2000000 else Colors.RED}Gemini 1.5 Pro     2M        {Colors.RESET}
-    {Colors.GREEN if tokens < 200000  else Colors.RED}Claude 3.5 Sonnet  200K      {Colors.RESET}
-    {Colors.GREEN if tokens < 8000    else Colors.RED}GitHub Copilot     8k        {Colors.RESET}
-    {Colors.GREEN if tokens < 1000000 else Colors.RED}DeepSeek-Chat      1M        {Colors.RESET}
-    {Colors.GREEN if tokens < 4000    else Colors.RED}Llama 2            4K        {Colors.RESET}
-    {Colors.GREEN if tokens < 8000    else Colors.RED}Llama 3            8K ~ 32K  {Colors.RESET}\n"""
+            f"""    LLM            Token     LLM               Token
+    {Colors.GREEN if tokens < 4000    else Colors.RED}Llama 2        4K        {Colors.RESET}{Colors.GREEN if tokens < 200000  else Colors.RED}Claude 3.5 Sonnet 200K      {Colors.RESET}
+    {Colors.GREEN if tokens < 8000    else Colors.RED}GPT-4          8K        {Colors.RESET}{Colors.GREEN if tokens < 8000    else Colors.RED}GitHub Copilot    8k        {Colors.RESET}
+    {Colors.GREEN if tokens < 128000  else Colors.RED}GPT-4 Turbo    128K      {Colors.RESET}{Colors.GREEN if tokens < 1000000 else Colors.RED}DeepSeek-Chat     1M        {Colors.RESET}
+    {Colors.GREEN if tokens < 128000  else Colors.RED}GPT-4o         128K      {Colors.RESET}{Colors.GREEN if tokens < 16385   else Colors.RED}GPT-3.5 Turbo     16K       {Colors.RESET}
+    {Colors.GREEN if tokens < 2000000 else Colors.RED}Gemini 1.5 Pro 2M        {Colors.RESET}{Colors.GREEN if tokens < 8000    else Colors.RED}Llama 3           8K ~ 32K  {Colors.RESET}\n"""
         )
         print(f"{Colors.BLUE}[~]{Colors.RESET} LLMs marked in red may not process your file properly.\n")
