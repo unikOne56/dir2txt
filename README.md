@@ -15,7 +15,7 @@ git clone https://github.com/unikOne56/dir2txt
 cd dir2txt
 python -m dir2txt
 
-# That's it. You'll get dirContent.txt
+# That's it. You'll get project.txt
 ```
 
 ## 📖 Usage
@@ -32,15 +32,22 @@ python -m dir2txt -o project.txt
 
 # Add description header
 python -m dir2txt -d "My Django project"
+
+# Quickly ignore files
+python -m dir2txt -e pt onnx dcm
+
+# Managing ignores with .dir2txtignor (According to .gitignore patterns)
+echo -e "*.pt \n*.onnx \n*.dcm" > ".dir2txtignore" 
+python -m dir2txt
 ```
 
 ## ⚡ What it does
 
-· Scans all files recursively
-· Skips binary files (images, PDFs, executables)
-· Respects .dir2txtignore (gitignore-style patterns)
-· Removes code comments automatically
-· Estimates tokens and checks against model limits
+- Scans all files recursively
+- Skips binary files (images, PDFs, executables)
+- Respects .dir2txtignore (gitignore-style patterns)
+- Removes code comments automatically
+- Estimates tokens and checks against model limits
 
 ## 📄 Example output
 
