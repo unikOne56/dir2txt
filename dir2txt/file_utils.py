@@ -206,7 +206,7 @@ def convert_files_to_text(files: list[str], description: str, output_file: str, 
             try:
                 with open(path, "r", encoding="utf-8", errors="replace") as infile:
                     file_content = infile.read()
-                
+            
                 outfile.write(f"$----Start----|{path}|----\n")
                 for line in file_content.split("\n"):
                     line = remove_comments_from_string(line)
@@ -215,8 +215,8 @@ def convert_files_to_text(files: list[str], description: str, output_file: str, 
                 outfile.write(f"$-----End-----|{path}|----\n\n\n")
 
             except Exception as e:
-                outfile.write(f"# Error processing file {path}: {e}\n")
-                outfile.write(f"FILE END: {path}\n\n")
+                outfile.write(f"$-Error-processing-file-|{path}|--- {e}\n")
+                outfile.write(f"$-----End-----|{path}|----\n\n")
 
     print(f"{Colors.BLUE}[~]{Colors.RESET} The file was written {Colors.BRIGHT_GREEN}SUCCESSFULLY{Colors.RESET}.")
     
