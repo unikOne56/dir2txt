@@ -26,7 +26,7 @@ def main():
     args = parser.parse_args()
 
     input_ = args.input if args.input else "."
-    output = args.output if args.output else "dirContent.txt"
+    output = args.output if args.output else "project.txt"
     description = f"{args.description}\n" if args.description else ""
 
     files = get_list_files(dir_path=input_)
@@ -40,7 +40,7 @@ def main():
         runtime_extensions=args.ignore_ext
     )
         
-    generate_tree_view(dir_path=input_, output_tree_file='project_tree.txt')
+    generate_tree_view(dir_path=input_, output_tree_file=f"{output.split(".")[0]}.tree.txt")
     file_quality_check_for_LLM(output)
 
 
