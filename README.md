@@ -13,6 +13,7 @@ Dump your entire project into one text file. For LLMs, code reviews, or backups.
 # Clone and run
 git clone https://github.com/unikOne56/dir2txt
 cd dir2txt
+pip install -e .
 python -m dir2txt
 
 # That's it. You'll get project.txt
