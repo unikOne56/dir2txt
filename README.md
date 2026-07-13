@@ -52,18 +52,30 @@ python -m dir2txt
 
 ## 📄 Example output
 
-```
-FILE START: ./main.py
-def hello():
-    print("world")
-FILE END: ./main.py
+```text
+$----Start----|test/project.tree.txt|----
+test/
+├── my_test_project
+│   ├── .dir2txtignore
+│   ├── example.exe
+│   ├── example.txt
+│   └── my_privet_file.sec
+├── project.tree.txt
+├── project.txt
+└── run.sh
+$-----End-----|test/project.tree.txt|----
+
+
+$----Start----|test/my_test_project/example.txt|----
+This is a test text.
+$-----End-----|test/my_test_project/example.txt|----
 ```
 
 ## 🚫 Ignore files
 
-Create .dir2txtignore:
+Create `.dir2txtignore`:
 
-```
+```.dir2txtignore
 *.pyc
 pycache/
 .env
