@@ -1,4 +1,4 @@
-FILE START: test/project.tree.txt 
+$----Start----|test/project.tree.txt|----
 test/
 ├── my_test_project
 │   ├── .dir2txtignore
@@ -7,20 +7,12 @@ test/
 │   └── my_privet_file.sec
 ├── project.tree.txt
 ├── project.txt
-├── run.sh
-└── test_output.txt
-FILE END: test/project.tree.txt 
+└── run.sh
+$-----End-----|test/project.tree.txt|----
 
-FILE START: test/test_output.txt 
-its test
-FILE START: test/my_test_project/example.exe
-FILE END: test/my_test_project/example.exe
-FILE START: test/my_test_project/example.txt
-This is a test text.
-FILE END: test/my_test_project/example.txt
-FILE END: test/test_output.txt 
 
-FILE START: test/my_test_project/example.txt 
+$----Start----|test/my_test_project/example.txt|----
 This is a test text.
-FILE END: test/my_test_project/example.txt 
+$-----End-----|test/my_test_project/example.txt|----
+
 

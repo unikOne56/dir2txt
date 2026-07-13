@@ -195,12 +195,12 @@ def convert_files_to_text(files: list[str], description: str, output_file: str, 
                 with open(path, "r", encoding="utf-8", errors="replace") as infile:
                     file_content = infile.read()
                 
-                outfile.write(f"FILE START: {path} \n")
+                outfile.write(f"$----Start----|{path}|----\n")
                 for line in file_content.split("\n"):
                     line = remove_comments_from_string(line)
                     if line.strip() not in spaces:
                         outfile.write(f"{line}\n")
-                outfile.write(f"FILE END: {path} \n\n")
+                outfile.write(f"$-----End-----|{path}|----\n\n\n")
 
             except Exception as e:
                 outfile.write(f"# Error processing file {path}: {e}\n")

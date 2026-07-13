@@ -6,5 +6,4 @@ test/
 │   └── my_privet_file.sec
 ├── project.tree.txt
 ├── project.txt
-├── run.sh
-└── test_output.txt
+└── run.sh
