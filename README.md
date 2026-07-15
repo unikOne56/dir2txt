@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./Images/logo.png" alt="Description" width="150">
+  <img src="./Images/logo2.png" alt="Description" width="150">
 </p>
 
 <h1 align="center">📂 dir2txt</h1>
