@@ -148,7 +148,7 @@ python -m dir2txt -d "Project Description"
 | -i, --input | Target directory to scan | -i ./project/src |
 | -o, --output | Custom output file path | -o docs/summary.txt |
 | -d, --description | Add a description header | -d "My Django Project v2" |
-| -e, --extensions | Ignore specific file extensions | -e pt onnx dcm |
+| -e, --ignore-ext | Ignore specific file extensions | -e pt onnx dcm |
 | -h, --help | Show help message and exit | -h |
 
 ### Real-World Examples
