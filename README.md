@@ -1,18 +1,18 @@
 <p align="center">
-  <img src="./Images/logo.png" alt="Description" width="800">
+  <img src="./Images/logo.png" alt="Description" width="150">
 </p>
 
 <h1 align="center">📂 dir2txt</h1>
+
+<p align="center">
+  <strong>Dump your entire project into one text file. For LLMs, code reviews, or backups.</strong>
+</p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/Python-3.8%2B-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python Version">
   <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="License">
   <img src="https://img.shields.io/github/stars/unikOne56/dir2txt?style=for-the-badge&color=yellow" alt="Stars">
   <img src="https://img.shields.io/github/forks/unikOne56/dir2txt?style=for-the-badge&color=orange" alt="Forks">
-</p>
-
-<p align="center">
-  <strong>Dump your entire project into one text file. For LLMs, code reviews, or backups.</strong>
 </p>
 
 ---
