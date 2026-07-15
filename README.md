@@ -255,37 +255,6 @@ $-----End-----|test/run.sh|----
 
 ---
 
-**Reporting Issues**
-
-- Use the [GitHub Issues](https://github.com/unikOne56/dir2txt/issues) tracker
-- Provide clear steps to reproduce the issue
-- Include sample input and expected output
-
-**Code Contributions**
-
-1. Fork the repository
-2. Create a feature branch:
-   git checkout -b feature/amazing-feature
-3. Make your changes with clear commit messages
-4. Add or update tests if applicable
-5. Push to your branch:
-   git push origin feature/amazing-feature
-6. Open a Pull Request with a detailed description
-
-**Development Setup**
-
-# Clone your fork
-git clone https://github.com/your-username/dir2txt
-cd dir2txt
-
-# Install in development mode
-pip install -e .
-
-# Run tests (if available)
-python -m unittest discover
-
----
-
 ## 📜 License
 
 This project is licensed under the **MIT License** – see the [LICENCE](LICENCE) file for details.
